@@ -19,7 +19,7 @@ static constexpr char PACKETS_TAG[] = "mitsubishi_itp.packets";
 #define CONSOLE_COLOR_WHITE "\033[0;37m"
 
 // Defined as constant for use as a Custom Fan Mode
-const std::string FAN_MODE_VERYHIGH = "Very High";
+inline const char* FAN_MODE_VERYHIGH = "Very High";
 
 // These are named to match with set fan speeds where possible.  "Very Low" is a special speed
 // for e.g. preheating or thermal off.
