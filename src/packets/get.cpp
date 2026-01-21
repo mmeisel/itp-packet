@@ -78,6 +78,12 @@ bool SettingsGetResponsePacket::is_i_see_enabled() const {
   return (mode >= 0x09 && mode <= 0x11);
 }
 
+SettingsGetResponsePacket &SettingsGetResponsePacket::set_target_temperature(const float temperature_degrees_c) {
+  pkt_.set_payload_byte(PLINDEX_TARGETTEMP_LEGACY, ITPUtils::deg_c_to_legacy_target_temp(temperature_degrees_c));
+  pkt_.set_payload_byte(PLINDEX_TARGETTEMP, ITPUtils::deg_c_to_temp_scale_a(temperature_degrees_c));
+  return *this;
+}
+
 // CurrentTempGetResponsePacket functions
 float CurrentTempGetResponsePacket::get_current_temp() const {
   uint8_t enhanced_raw_temp = pkt_.get_payload_byte(PLINDEX_CURRENTTEMP);
@@ -102,6 +108,12 @@ float CurrentTempGetResponsePacket::get_outdoor_temp() const {
 uint32_t CurrentTempGetResponsePacket::get_runtime_minutes() const {
   return pkt_.get_payload_byte(PLINDEX_RUNTIME) << 16 | pkt_.get_payload_byte(PLINDEX_RUNTIME + 1) << 8 |
          pkt_.get_payload_byte(PLINDEX_RUNTIME + 2);
+}
+
+CurrentTempGetResponsePacket &CurrentTempGetResponsePacket::set_current_temperature(float temperature_degrees_c) {
+  pkt_.set_payload_byte(PLINDEX_CURRENTTEMP_LEGACY, ITPUtils::deg_c_to_legacy_hp_room_temp(temperature_degrees_c));
+  pkt_.set_payload_byte(PLINDEX_CURRENTTEMP, ITPUtils::deg_c_to_temp_scale_a(temperature_degrees_c));
+  return *this;
 }
 
 // ErrorStateGetResponsePacket functions

@@ -72,6 +72,8 @@ class SettingsGetResponsePacket : public Packet {
 
   bool is_i_see_enabled() const;
 
+  SettingsGetResponsePacket &set_target_temperature(float temperature_degrees_c);
+
   std::string to_string() const override;
 };
 
@@ -88,6 +90,9 @@ class CurrentTempGetResponsePacket : public Packet {
   float get_outdoor_temp() const;
   // Returns lifetime runtime minutes of unit
   uint32_t get_runtime_minutes() const;
+
+  CurrentTempGetResponsePacket &set_current_temperature(float temperature_degrees_c);
+
   std::string to_string() const override;
 };
 
